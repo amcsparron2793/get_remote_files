@@ -5,6 +5,12 @@ from sys import stderr
 from socket import gaierror
 
 
+# TODO: in progress
+class GetTool:
+    def __init__(self):
+        pass
+
+
 class MyFTPTool:
     def __init__(self):
         while True:
