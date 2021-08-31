@@ -211,10 +211,3 @@ class GetFileHttp:
 
         elif not self.r.ok:
             print("Error: {},\n{}".format(self.r.status_code, self.r.reason))
-
-
-if __name__ == "__main__":
-    # ftp = MyFTPTool()
-    # ftp.choose_ftp_func()
-    #GetFileHttp("http://google.com")
-    GetFileHttp("http://icanhazip.com")
