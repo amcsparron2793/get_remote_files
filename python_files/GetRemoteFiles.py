@@ -1,7 +1,8 @@
+#! python3
 import os
 import requests
 import ftplib
-from sys import stderr
+from sys import stderr, version_info
 from socket import gaierror
 
 
@@ -21,7 +22,12 @@ class MyFTPTool:
 
     # noinspection PyMethodMayBeStatic
     def getHostName(self):
-        hn = input("Please Enter HostName [192.168.1.98]: ")
+        if version_info.major >= 3:
+            hn = input("Please Enter HostName [192.168.1.98]: ")
+        else:
+            # noinspection PyUnresolvedReferences
+            hn = raw_input("Please Enter HostName [192.168.1.98]: ")
+
         if len(hn) > 0:
             return hn
         else:
