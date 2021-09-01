@@ -1,7 +1,6 @@
+#! python3
 """
-Test_Project
-
-**** DESCRIPTION GOES HERE ****
+FTP/HTTP get remote files
 """
 
 
@@ -42,6 +41,8 @@ elif 'CustomLog_Classes' in modules:
 
 elif 'dependencies.CustomLog_Classes' not in modules:
     print("CustomLog_Classes not in modules!!")
+
+doc_check_token_path = "../Misc_Project_Files/no_doc_check"
 
 py_ver_float = float(str(version_info.major) + '.' + str(version_info.minor))
 
@@ -90,16 +91,24 @@ def get_docs():
 
 
 if __name__ == '__main__':
-    if py_ver_float <= 2.9:
-        print("Program Documentation could not be generated, please use python 3 or greater.")
-    elif py_ver_float >= 3.0:
-        if isdir('../Program_Documentation') or isdir('Program_Documentation'):
-            print("Program Documentation already exists. "
-                  "Open Program_Documentation\html\index.html in a web browser to view it. "
-                  "Moving on!")
-        else:
-            if yn("Project Documentation not found, would you like it to be generated?"):
-                get_docs()
+    if not isfile(doc_check_token_path):
+        if py_ver_float <= 2.9:
+            print("Program Documentation could not be generated, please use python 3 or greater.")
+        elif py_ver_float >= 3.0:
+            if isdir('../Program_Documentation') or isdir('Program_Documentation'):
+                print("Program Documentation already exists. "
+                      "Open Program_Documentation\html\index.html in a web browser to view it. "
+                      "Moving on!")
             else:
-                print("Project docs not generated, moving on...")
+                if yn("Project Documentation not found, would you like it to be generated?"):
+                    get_docs()
+                else:
+                    if yn("Project docs not generated, would you like to be asked about this again?"):
+                        pass
+                    else:
+                        with open(doc_check_token_path, "w") as f:
+                            pass
+
+    elif isfile(doc_check_token_path):
+        print("no_doc_check_token detected, to check for documentation please delete {}".format(doc_check_token_path))
     main_func(dev=False)
