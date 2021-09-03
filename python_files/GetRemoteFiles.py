@@ -1,14 +1,31 @@
 import os
-import requests
 import ftplib
+
 from sys import stderr
 from socket import gaierror
 
+import questionary
+import requests
 
-# TODO: in progress
+# TODO: add in Clog error handling
+
+
 class GetTool:
     def __init__(self):
-        pass
+        self.chosen_tool = questionary.select("Please choose a tool",
+                                              ["MyFTPTool", "GetFileHTTP"]).ask()
+        if self.chosen_tool == "GetFileHTTP":
+            # TODO: error handling
+            self.in_url = questionary.text("Please enter Url").ask()
+            self.gfhttp = GetFileHttp(str(self.in_url))
+        elif self.chosen_tool == "MyFTPTool":
+            self.ftptool = MyFTPTool()
+            self.ftptool.choose_ftp_func()
+        else:
+            try:
+                raise AttributeError("Tool does not exist")
+            except AttributeError as e:
+                print(e)
 
 
 class MyFTPTool:
@@ -35,6 +52,7 @@ class MyFTPTool:
             return hn
 
     def login(self):
+        # TODO: add in error handling and quit function to login loop
         while True:
             try:
                 print("**** Please Login to {} ****".format(self.hostname))

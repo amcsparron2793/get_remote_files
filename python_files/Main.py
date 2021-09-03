@@ -51,10 +51,8 @@ py_ver_float = float(str(version_info.major) + '.' + str(version_info.minor))
 def main_func(dev=False):
     """ Main Program function. """
     if not dev:
-        ftp = GetRemoteFiles.MyFTPTool()
-        ftp.choose_ftp_func()
-        # GetFileHttp("http://google.com")
-        # GetRemoteFiles.GetFileHttp("http://icanhazip.com")
+        tool_chooser = GetRemoteFiles.GetTool()
+        return tool_chooser
     elif dev:
         if version_info.major == 3:
             print("checking for docstrings now...")
@@ -110,5 +108,7 @@ if __name__ == '__main__':
                             pass
 
     elif isfile(doc_check_token_path):
-        print("no_doc_check_token detected, to check for documentation please delete {}".format(doc_check_token_path))
+        print("no_doc_check_token detected, "
+              "to check for documentation please delete {}".format(doc_check_token_path))
+
     main_func(dev=False)
